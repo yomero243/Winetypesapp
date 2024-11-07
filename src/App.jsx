@@ -19,7 +19,7 @@ function RotatingLights() {
     
     // Rotación de las luces
     const radius = 3;
-    const speed = 0.5;
+    const speed = 1.5;
     
     // Luz 1
     light1Ref.current.position.x = Math.sin(timeRef.current * speed) * radius;
@@ -59,14 +59,19 @@ function Model() {
   const modelRef = useRef();
   const { scene } = useGLTF('/untitled.glb');
   
-  // Configurar escala y posición inicial
-  scene.scale.set(2, 2, 2);
-  scene.position.set(0, 0, 0);
+  scene.scale.set(1.2, 1.2, 1.2);
+  scene.position.set(0, 2, 0);
   
-  // Añadir rotación continua
+  scene.traverse((node) => {
+    if (node.isMesh) {
+      node.castShadow = true;
+      node.receiveShadow = true;
+    }
+  });
+
   useFrame((state, delta) => {
     if (modelRef.current) {
-      modelRef.current.rotation.y -= delta * 0.5; // Valor negativo para girar a la derecha
+      modelRef.current.rotation.y -= delta * 0.5;
     }
   });
 
@@ -75,60 +80,47 @@ function Model() {
 
 function App() {
   return (
-    <div 
-      className="min-h-screen" 
-      style={{
-        backgroundImage: 'url(background.jpg)', //  Tu imagen JPG
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat'
-      }}>
+    <div className="min-h-screen relative pb-[100px]" style={{
+      backgroundImage: 'url(background.jpg)',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat'
+    }}>
       <div className="py-4">
-        <h1 className="text-3xl font-bold text-center text-black mb-4">
+        <h1 className="text-6xl font-['Great_Vibes'] font-bold text-center text-black mb-4 relative z-0">
           Types of wines
         </h1>
 
-        <div className="relative">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-[600px] w-full max-w-[800px] z-0">
+        <div className="relative min-h-[800px]">
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-[800px] w-full max-w-[800px] z-10 overflow-visible">
             <Canvas 
-              shadows 
-              camera={{ 
-                position: [0, 0, 8],
-                fov: 50,
-                near: 0.1,
-                far: 1000
-              }}
+              shadows
+              camera={{ position: [0, 0, 8], fov: 50 }}
               style={{ 
                 position: 'absolute', 
                 top: 0, 
                 left: 0, 
                 width: '100%', 
                 height: '100%',
-                background: 'transparent' // Hacer el canvas transparente
+                background: 'transparent',
+                overflow: 'visible'
               }}>
-              
-              <Environment
-                files="/royal_esplanade_4k.hdr"
-                background={false} // Cambiar a false para que no se use como fondo
-              />
-
+              <Environment files="/royal_esplanade_4k.hdr" background={false} />
               <ambientLight intensity={1.5} />
               <RotatingLights />
-              
-              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
-                <planeGeometry args={[100, 100]} />
-                <shadowMaterial transparent opacity={0.4} />
-              </mesh>
-
               <Model />
             </Canvas>
           </div>
           
-          <div className="relative z-10 pt-[100px]">
+          <div className="absolute w-full px-4 z-20">
             <WineButtons wineData={vinos} />
           </div>
         </div>
       </div>
+
+      <footer className="bg-black bg-opacity-80 text-white py-4 text-center fixed bottom-0 w-full">
+        <p>© 2024 Types of Wines. Todos los derechos reservados.</p>
+      </footer>
     </div>
   );
 }

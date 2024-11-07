@@ -35,7 +35,9 @@ function WineButtons({ wineData }) {
         {wines.map((wine) => (
           <div key={wine} className="bg-white p-2 rounded-lg shadow-sm hover:shadow-md border 
                                    border-[#D4B996] hover:border-[#722F37] transition-all duration-300 
-                                   text-center text-[#722F37] text-sm hover:-translate-y-0.5">
+                                   text-center text-[#722F37] text-xs md:text-sm min-h-[40px] 
+                                   flex items-center justify-center whitespace-normal
+                                   hover:-translate-y-0.5">
             {wine}
           </div>
         ))}
@@ -51,9 +53,9 @@ function WineButtons({ wineData }) {
           <button
             onClick={() => handleSubFlavorClick(subFlavor)}
             className={`w-full bg-white hover:bg-[#F5EEE6] text-[#722F37] border 
-                       border-[#D4B996] font-semibold py-1.5 px-3 rounded-lg 
+                       border-[#D4B996] text-sm py-1.5 px-3 rounded-lg 
                        transition duration-300 ease-in-out transform hover:scale-102 
-                       shadow-sm text-sm ${selectedSubFlavor === subFlavor ? 'bg-[#E6D5C1]' : ''}`}
+                       shadow-sm ${selectedSubFlavor === subFlavor ? 'bg-[#E6D5C1]' : ''}`}
           >
             {subFlavor}
           </button>
@@ -77,7 +79,7 @@ function WineButtons({ wineData }) {
             <button
               key={category}
               onClick={() => handleCategoryClick(category)}
-              className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-300
+              className={`px-6 py-2 rounded-full transition-all duration-300 font-['Great_Vibes'] text-2xl
                 ${selectedCategory === category 
                   ? 'bg-[#722F37] text-white shadow-lg'
                   : 'bg-white text-[#722F37] border border-[#722F37] hover:bg-[#722F37] hover:text-white'
@@ -97,9 +99,10 @@ function WineButtons({ wineData }) {
                   <button
                     onClick={() => handleSubCategoryClick(subCategory)}
                     className={`w-full bg-white hover:bg-[#F5EEE6] text-[#722F37] border 
-                               border-[#D4B996] font-semibold py-1.5 px-3 rounded-lg 
+                               border-[#D4B996] text-xs md:text-sm py-1.5 px-2 md:px-3 rounded-lg 
                                transition duration-300 ease-in-out transform hover:scale-102 
-                               shadow-sm text-sm ${selectedSubCategory === subCategory ? 'bg-[#E6D5C1]' : ''}`}
+                               whitespace-normal min-h-[40px] flex items-center justify-center
+                               shadow-sm ${selectedSubCategory === subCategory ? 'bg-[#E6D5C1]' : ''}`}
                   >
                     {subCategory}
                   </button>
@@ -114,9 +117,10 @@ function WineButtons({ wineData }) {
                             <button
                               onClick={() => handleFlavorClick(flavor)}
                               className={`w-full bg-white hover:bg-[#F5EEE6] text-[#722F37] border 
-                                        border-[#D4B996] font-semibold py-1.5 px-3 rounded-lg 
-                                        transition duration-300 ease-in-out transform hover:scale-102 
-                                        shadow-sm text-sm ${selectedFlavor === flavor ? 'bg-[#E6D5C1]' : ''}`}
+                                        border-[#D4B996] text-xs md:text-sm py-1.5 px-2 md:px-3 rounded-lg 
+                                        transition duration-300 ease-in-out transform hover:scale-102
+                                        whitespace-normal min-h-[40px] flex items-center justify-center 
+                                        shadow-sm ${selectedFlavor === flavor ? 'bg-[#E6D5C1]' : ''}`}
                             >
                               {flavor}
                             </button>
@@ -143,7 +147,7 @@ function WineButtons({ wineData }) {
             <button
               key={category}
               onClick={() => handleCategoryClick(category)}
-              className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-300
+              className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 font-['Great_Vibes'] text-lg
                 ${selectedCategory === category 
                   ? 'bg-[#722F37] text-white shadow-lg'
                   : 'bg-white text-[#722F37] border border-[#722F37] hover:bg-[#722F37] hover:text-white'
