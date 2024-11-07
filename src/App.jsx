@@ -1,5 +1,5 @@
 import { Canvas, useFrame } from '@react-three/fiber';
-import { OrbitControls, useGLTF } from '@react-three/drei';
+import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
 import { useRef } from 'react';
 import * as THREE from 'three';
 import WineButtons from './components/WineButtons';
@@ -75,38 +75,51 @@ function Model() {
 
 function App() {
   return (
-    <div className="min-h-screen" style={{ 
-      backgroundImage: "url('/background.jpg')",
-      backgroundSize: 'cover', 
-      backgroundPosition: 'center', 
-      backgroundRepeat: 'no-repeat',
-      minHeight: '100vh',
-      width: '100%',
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      overflowY: 'auto'
-    }}>
+    <div 
+      className="min-h-screen" 
+      style={{
+        backgroundImage: 'url(background.jpg)', //  Tu imagen JPG
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}>
       <div className="py-4">
         <h1 className="text-3xl font-bold text-center text-black mb-4">
-        Types of wines
+          Types of wines
         </h1>
 
         <div className="relative">
-          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 
-                        h-[600px] w-full max-w-[800px] z-0">
+          <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-[600px] w-full max-w-[800px] z-0">
             <Canvas 
+              shadows 
               camera={{ 
                 position: [0, 0, 8],
                 fov: 50,
                 near: 0.1,
                 far: 1000
               }}
-              style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%' }}>
-              <ambientLight intensity={0.5} />
+              style={{ 
+                position: 'absolute', 
+                top: 0, 
+                left: 0, 
+                width: '100%', 
+                height: '100%',
+                background: 'transparent' // Hacer el canvas transparente
+              }}>
+              
+              <Environment
+                files="/royal_esplanade_4k.hdr"
+                background={false} // Cambiar a false para que no se use como fondo
+              />
+
+              <ambientLight intensity={1.5} />
               <RotatingLights />
+              
+              <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -2, 0]} receiveShadow>
+                <planeGeometry args={[100, 100]} />
+                <shadowMaterial transparent opacity={0.4} />
+              </mesh>
+
               <Model />
             </Canvas>
           </div>
