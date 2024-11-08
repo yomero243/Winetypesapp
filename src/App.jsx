@@ -4,6 +4,7 @@ import { useRef } from 'react';
 import * as THREE from 'three';
 import WineButtons from './components/WineButtons';
 import vinos from './vinos.jsx';
+import SearchBar from './components/searchbar.jsx';
 
 // Componente para las luces rotativas
 function RotatingLights() {
@@ -91,6 +92,8 @@ function App() {
           Types of wines
         </h1>
 
+        <SearchBar />
+
         <div className="relative min-h-[800px]">
           <div className="absolute top-0 left-1/2 transform -translate-x-1/2 h-[800px] w-full max-w-[800px] z-10 overflow-visible">
             <Canvas 
@@ -119,7 +122,7 @@ function App() {
       </div>
 
       <footer className="bg-black bg-opacity-80 text-white py-4 text-center fixed bottom-0 w-full">
-        <p>© 2024 Types of Wines. Todos los derechos reservados.</p>
+        <p>© 2024 Types of Wines by Cardelli. All rights reserved.</p>
       </footer>
     </div>
   );
