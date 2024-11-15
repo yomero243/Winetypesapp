@@ -82,7 +82,7 @@ function Model() {
 function App() {
   return (
     <div className="min-h-screen relative pb-[100px]" style={{
-      backgroundImage: 'url(background.jpg)',
+      backgroundImage: 'url(background.webp)',
       backgroundSize: 'cover',
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
