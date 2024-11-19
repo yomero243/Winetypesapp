@@ -1,48 +1,47 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import * as THREE from 'three';
 import WineButtons from './components/WineButtons';
 import vinos from './vinos.jsx';
 import SearchBar from './components/searchbar.jsx';
+
+// Definir constantes para valores repetidos
+const RADIUS = 3;
+const SPEED = 1.5;
+const MODEL_PATH = '/untitled.glb';
 
 // Componente para las luces rotativas
 function RotatingLights() {
   const light1Ref = useRef();
   const light2Ref = useRef();
   const light3Ref = useRef();
-
-  // Estado para controlar el tiempo de cambio de color
   const timeRef = useRef(0);
-  
+
   useFrame((state, delta) => {
-    timeRef.current += delta;
+    const currentTime = timeRef.current += delta;
+    const angleBase = currentTime * SPEED;
     
-    // Rotación de las luces
-    const radius = 3;
-    const speed = 1.5;
-    
-    // Luz 1
-    light1Ref.current.position.x = Math.sin(timeRef.current * speed) * radius;
-    light1Ref.current.position.z = Math.cos(timeRef.current * speed) * radius;
-    
-    // Luz 2 (desfasada 120 grados)
-    light2Ref.current.position.x = Math.sin(timeRef.current * speed + (2 * Math.PI / 3)) * radius;
-    light2Ref.current.position.z = Math.cos(timeRef.current * speed + (2 * Math.PI / 3)) * radius;
-    
-    // Luz 3 (desfasada 240 grados)
-    light3Ref.current.position.x = Math.sin(timeRef.current * speed + (4 * Math.PI / 3)) * radius;
-    light3Ref.current.position.z = Math.cos(timeRef.current * speed + (4 * Math.PI / 3)) * radius;
-    
-    // Cambio de colores aleatorio cada 2 segundos
-    if (timeRef.current % 2 < delta) {
-      const randomColor1 = new THREE.Color(Math.random(), Math.random(), Math.random());
-      const randomColor2 = new THREE.Color(Math.random(), Math.random(), Math.random());
-      const randomColor3 = new THREE.Color(Math.random(), Math.random(), Math.random());
-      
-      light1Ref.current.color = randomColor1;
-      light2Ref.current.color = randomColor2;
-      light3Ref.current.color = randomColor3;
+    const sinBase = Math.sin(angleBase);
+    const cosBase = Math.cos(angleBase);
+
+    light1Ref.current.position.set(sinBase * RADIUS, 5, cosBase * RADIUS);
+    light2Ref.current.position.set(
+      Math.sin(angleBase + (2 * Math.PI / 3)) * RADIUS,
+      5,
+      Math.cos(angleBase + (2 * Math.PI / 3)) * RADIUS
+    );
+    light3Ref.current.position.set(
+      Math.sin(angleBase + (4 * Math.PI / 3)) * RADIUS,
+      5,
+      Math.cos(angleBase + (4 * Math.PI / 3)) * RADIUS
+    );
+
+    if (currentTime % 2 < delta) {
+      const getRandomColor = () => new THREE.Color(Math.random(), Math.random(), Math.random());
+      [light1Ref, light2Ref, light3Ref].forEach(light => {
+        light.current.color = getRandomColor();
+      });
     }
   });
 
@@ -58,17 +57,18 @@ function RotatingLights() {
 // Componente para el modelo
 function Model() {
   const modelRef = useRef();
-  const { scene } = useGLTF('/untitled.glb');
-  
-  scene.scale.set(1.2, 1.2, 1.2);
-  scene.position.set(0, 2, 0);
-  
-  scene.traverse((node) => {
-    if (node.isMesh) {
-      node.castShadow = true;
-      node.receiveShadow = true;
-    }
-  });
+  const { scene } = useGLTF(MODEL_PATH);
+
+  useEffect(() => {
+    scene.scale.set(1.2, 1.2, 1.2);
+    scene.position.set(0, 2, 0);
+    scene.traverse((node) => {
+      if (node.isMesh) {
+        node.castShadow = true;
+        node.receiveShadow = true;
+      }
+    });
+  }, [scene]);
 
   useFrame((state, delta) => {
     if (modelRef.current) {
@@ -89,7 +89,7 @@ function App() {
     }}>
       <div className="py-4">
         <h1 className="text-6xl font-['Great_Vibes'] font-bold text-center text-black mb-4 relative z-0">
-          Types of wines
+          Wine List
         </h1>
 
         <SearchBar />
@@ -129,6 +129,6 @@ function App() {
 }
 
 // Precargar el modelo
-useGLTF.preload('/ruta/a/tu/modelo.glb');
+useGLTF.preload(MODEL_PATH);
 
 export default App;
