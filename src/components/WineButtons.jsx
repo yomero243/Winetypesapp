@@ -79,7 +79,7 @@ function WineButtons({ wineData }) {
             <button
               key={category}
               onClick={() => handleCategoryClick(category)}
-              className={`px-6 py-2 rounded-full transition-all duration-300 font-['Great_Vibes'] text-2xl
+              className={`px-6 py-2 rounded-full font-medium text-sm transition-all duration-300 font-['Great_Vibes'] text-lg
                 ${selectedCategory === category 
                   ? 'bg-[#722F37] text-white shadow-lg'
                   : 'bg-white text-[#722F37] border border-[#722F37] hover:bg-[#722F37] hover:text-white'

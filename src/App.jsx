@@ -1,10 +1,12 @@
 import { Canvas, useFrame } from '@react-three/fiber';
 import { OrbitControls, useGLTF, Environment } from '@react-three/drei';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import * as THREE from 'three';
 import WineButtons from './components/WineButtons';
 import vinos from './vinos.jsx';
 import SearchBar from './components/searchbar.jsx';
+import CocktailButtons from './components/CocktailButtons';
+import cocktails from './cocktails.jsx';
 
 // Definir constantes para valores repetidos
 const RADIUS = 3;
@@ -80,6 +82,8 @@ function Model() {
 }
 
 function App() {
+  const [selectedSection, setSelectedSection] = useState('wines');
+
   return (
     <div className="min-h-screen relative pb-[100px]" style={{
       backgroundImage: 'url(background.webp)',
@@ -87,11 +91,32 @@ function App() {
       backgroundPosition: 'center',
       backgroundRepeat: 'no-repeat'
     }}>
-      <div className="py-4">
-        <h1 className="text-6xl font-['Great_Vibes'] font-bold text-center text-black mb-4 relative z-0">
-          Wine List
-        </h1>
+      {/* Navegación principal */}
+      <nav className="bg-black bg-opacity-50 py-4">
+        <div className="container mx-auto flex justify-center items-center gap-8">
+          <h1 
+            onClick={() => setSelectedSection('wines')}
+            className={`text-4xl font-['Great_Vibes'] cursor-pointer transition-all duration-300
+              ${selectedSection === 'wines' 
+                ? 'text-[#722F37] scale-110' 
+                : 'text-white hover:text-[#722F37]'}`}
+          >
+            Wine List
+          </h1>
+          <span className="text-white text-4xl">|</span>
+          <h1 
+            onClick={() => setSelectedSection('cocktails')}
+            className={`text-4xl font-['Great_Vibes'] cursor-pointer transition-all duration-300
+              ${selectedSection === 'cocktails' 
+                ? 'text-[#722F37] scale-110' 
+                : 'text-white hover:text-[#722F37]'}`}
+          >
+            Cocktails
+          </h1>
+        </div>
+      </nav>
 
+      <div className="py-4">
         <SearchBar />
 
         <div className="relative min-h-[800px]">
@@ -116,13 +141,17 @@ function App() {
           </div>
           
           <div className="absolute w-full px-4 z-20">
-            <WineButtons wineData={vinos} />
+            {selectedSection === 'wines' ? (
+              <WineButtons wineData={vinos} />
+            ) : (
+              <CocktailButtons cocktailData={cocktails} />
+            )}
           </div>
         </div>
       </div>
 
       <footer className="bg-black bg-opacity-80 text-white py-4 text-center fixed bottom-0 w-full">
-        <p>© 2024 Types of Wines by Cardelli. All rights reserved.</p>
+        <p>© 2024 Types of Wines & Cocktails by Cardelli. All rights reserved.</p>
       </footer>
     </div>
   );
