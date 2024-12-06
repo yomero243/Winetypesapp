@@ -1,0 +1,93 @@
+{
+  "cocktails": [
+    {
+      "name": "Margarita",
+      "ingredients": [
+        "50 ml tequila",
+        "20 ml orange liqueur (Triple Sec)",
+        "15 ml fresh lime juice",
+        "Salt for rim",
+        "Ice"
+      ],
+      "preparation": [
+        "Rim a cocktail glass with salt.",
+        "In a shaker with ice, combine tequila, orange liqueur, and lime juice.",
+        "Shake vigorously until well chilled.",
+        "Strain into the prepared glass.",
+        "Garnish with a lime slice if desired."
+      ]
+    },
+    {
+      "name": "Mojito",
+      "ingredients": [
+        "50 ml white rum",
+        "8-10 fresh mint leaves",
+        "2 teaspoons sugar",
+        "25 ml fresh lime juice",
+        "Club soda",
+        "Crushed ice"
+      ],
+      "preparation": [
+        "In a tall glass, place mint leaves and sugar.",
+        "Gently muddle with a muddler to release mint aroma.",
+        "Add lime juice and mix well.",
+        "Fill the glass with crushed ice.",
+        "Pour rum over the ice.",
+        "Top with club soda.",
+        "Stir gently to combine.",
+        "Garnish with a mint sprig and a lime wedge."
+      ]
+    },
+    {
+      "name": "Piña Colada",
+      "ingredients": [
+        "60 ml white rum",
+        "90 ml pineapple juice",
+        "30 ml coconut cream",
+        "Crushed ice"
+      ],
+      "preparation": [
+        "In a blender, combine rum, pineapple juice, coconut cream, and crushed ice.",
+        "Blend until smooth and creamy.",
+        "Serve in a tall glass or hurricane glass.",
+        "Garnish with a pineapple wedge and a maraschino cherry."
+      ]
+    },
+    {
+      "name": "Negroni",
+      "ingredients": [
+        "30 ml gin",
+        "30 ml Campari",
+        "30 ml sweet red vermouth",
+        "Ice"
+      ],
+      "preparation": [
+        "Fill a mixing glass with ice.",
+        "Add gin, Campari, and vermouth.",
+        "Stir well until chilled.",
+        "Strain into a rocks glass over fresh ice.",
+        "Garnish with an orange slice or twist."
+      ]
+    },
+    {
+      "name": "Old Fashioned",
+      "ingredients": [
+        "50 ml whiskey (preferably bourbon or rye)",
+        "1 sugar cube",
+        "2-3 dashes Angostura bitters",
+        "A few drops of water",
+        "Ice",
+        "Orange peel for garnish"
+      ],
+      "preparation": [
+        "Place the sugar cube in an old-fashioned glass.",
+        "Add the Angostura bitters and a few drops of water.",
+        "Muddle the sugar cube until dissolved.",
+        "Fill the glass with ice.",
+        "Pour the whiskey over the ice.",
+        "Stir gently to combine.",
+        "Garnish with an orange peel, squeezing lightly to release the oils."
+      ]
+    }
+  ]
+}
